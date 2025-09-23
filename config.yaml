@@ -1,0 +1,6 @@
+coins: ["bitcoin", "ethereum", "binancecoin", "ripple", "cardano"]
+quote_currency: "usd"
+resample: "1D"
+vol_windows: [7, 30, 90]
+garch_horizon: 7
+rf_lags: [1,2,3,5,7,14,21]
