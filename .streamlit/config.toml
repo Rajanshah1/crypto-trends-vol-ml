@@ -1,0 +1,7 @@
+[theme]
+base = "light"             # respects user dark-mode toggle
+primaryColor = "#6C5CE7"   # grape
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F6F7FB"
+textColor = "#111827"
+font = "sans serif"        # see note below about custom fonts
