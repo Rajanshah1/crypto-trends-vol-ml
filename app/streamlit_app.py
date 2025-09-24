@@ -233,16 +233,34 @@ def normalize_to_100(s: pd.Series) -> pd.Series:
     first = s.iloc[0]
     return s * np.nan if (pd.isna(first) or first == 0) else (s / first) * 100.0
 
-
 # =========================================
 # SIDEBAR: DATA PATHS & FILTERS
 # =========================================
 st.sidebar.header("Data")
-data_path = st.sidebar.text_input("Path to data (.parquet or .csv, or a folder)", str(DEFAULT_DATA))
-outs_path = st.sidebar.text_input("Path to forecasts folder (outputs/)", str(DEFAULT_OUTS))
+
+# 👇 leave blank by default, auto-discover will kick in if user doesn’t type anything
+data_path = st.sidebar.text_input(
+    "Path to data (.parquet or .csv, or a folder)",
+    value=""   # start blank
+)
+outs_path = st.sidebar.text_input(
+    "Path to forecasts folder (outputs/)",
+    str(DEFAULT_OUTS)
+)
+
+# If blank, auto-discover dataset from repo
+if not data_path.strip():
+    data_path = "."
 
 df = load_panel(data_path)
 preds = load_forecasts(Path(outs_path))
+
+# Optional: show what path got resolved
+try:
+    st.sidebar.caption(f"Resolved data path → `{Path(data_path).resolve()}`")
+except Exception:
+    pass
+
 
 # Guard rails / schema hints
 need = [DATE_COL, COIN_COL, PRICE_COL, MKT_CAP_COL]
